@@ -1,0 +1,212 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Хранилище Train_scheduleModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Pessenger">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fio" Type="nvarchar" MaxLength="255" />
+          <Property Name="passport" Type="nchar" MaxLength="10" />
+          <Property Name="phone" Type="nchar" MaxLength="11" />
+        </EntityType>
+        <EntityType Name="Ticket">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="price" Type="money" />
+          <Property Name="idTrain" Type="int" />
+          <Property Name="idPassenger" Type="int" />
+        </EntityType>
+        <EntityType Name="Train">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="des" Type="nvarchar" MaxLength="255" />
+          <Property Name="dep_point" Type="nvarchar" MaxLength="255" />
+          <Property Name="num" Type="int" />
+          <Property Name="dep_time" Type="time" Precision="7" />
+          <Property Name="trav_time" Type="int" />
+          <Property Name="stations" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <Association Name="FK_Ticket_Pessenger">
+          <End Role="Pessenger" Type="Self.Pessenger" Multiplicity="0..1" />
+          <End Role="Ticket" Type="Self.Ticket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pessenger">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Ticket">
+              <PropertyRef Name="idPassenger" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ticket_Train">
+          <End Role="Train" Type="Self.Train" Multiplicity="0..1" />
+          <End Role="Ticket" Type="Self.Ticket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Train">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Ticket">
+              <PropertyRef Name="idTrain" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище Train_scheduleModelContainer">
+          <EntitySet Name="Pessenger" EntityType="Self.Pessenger" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Ticket" EntityType="Self.Ticket" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Train" EntityType="Self.Train" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Ticket_Pessenger" Association="Self.FK_Ticket_Pessenger">
+            <End Role="Pessenger" EntitySet="Pessenger" />
+            <End Role="Ticket" EntitySet="Ticket" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ticket_Train" Association="Self.FK_Ticket_Train">
+            <End Role="Train" EntitySet="Train" />
+            <End Role="Ticket" EntitySet="Ticket" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Train_scheduleModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Pessenger">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fio" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="passport" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="phone" Type="String" MaxLength="11" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="Ticket" Relationship="Train_scheduleModel.FK_Ticket_Pessenger" FromRole="Pessenger" ToRole="Ticket" />
+        </EntityType>
+        <EntityType Name="Ticket">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="price" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="idTrain" Type="Int32" />
+          <Property Name="idPassenger" Type="Int32" />
+          <NavigationProperty Name="Pessenger" Relationship="Train_scheduleModel.FK_Ticket_Pessenger" FromRole="Ticket" ToRole="Pessenger" />
+          <NavigationProperty Name="Train" Relationship="Train_scheduleModel.FK_Ticket_Train" FromRole="Ticket" ToRole="Train" />
+        </EntityType>
+        <EntityType Name="Train">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="des" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="dep_point" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="num" Type="Int32" />
+          <Property Name="dep_time" Type="Time" Precision="7" />
+          <Property Name="trav_time" Type="Int32" />
+          <NavigationProperty Name="Ticket" Relationship="Train_scheduleModel.FK_Ticket_Train" FromRole="Train" ToRole="Ticket" />
+          <Property Name="stations" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityContainer Name="Train_scheduleEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Pessenger" EntityType="Self.Pessenger" />
+          <EntitySet Name="Ticket" EntityType="Self.Ticket" />
+          <EntitySet Name="Train" EntityType="Self.Train" />
+          <AssociationSet Name="FK_Ticket_Pessenger" Association="Train_scheduleModel.FK_Ticket_Pessenger">
+            <End Role="Pessenger" EntitySet="Pessenger" />
+            <End Role="Ticket" EntitySet="Ticket" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ticket_Train" Association="Train_scheduleModel.FK_Ticket_Train">
+            <End Role="Train" EntitySet="Train" />
+            <End Role="Ticket" EntitySet="Ticket" />
+          </AssociationSet>
+        </EntityContainer>
+        <Association Name="FK_Ticket_Pessenger">
+          <End Type="Train_scheduleModel.Pessenger" Role="Pessenger" Multiplicity="0..1" />
+          <End Type="Train_scheduleModel.Ticket" Role="Ticket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pessenger">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Ticket">
+              <PropertyRef Name="idPassenger" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ticket_Train">
+          <End Type="Train_scheduleModel.Train" Role="Train" Multiplicity="0..1" />
+          <End Type="Train_scheduleModel.Ticket" Role="Ticket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Train">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Ticket">
+              <PropertyRef Name="idTrain" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище Train_scheduleModelContainer" CdmEntityContainer="Train_scheduleEntities">
+          <EntitySetMapping Name="Pessenger">
+            <EntityTypeMapping TypeName="Train_scheduleModel.Pessenger">
+              <MappingFragment StoreEntitySet="Pessenger">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="fio" ColumnName="fio" />
+                <ScalarProperty Name="passport" ColumnName="passport" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ticket">
+            <EntityTypeMapping TypeName="Train_scheduleModel.Ticket">
+              <MappingFragment StoreEntitySet="Ticket">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="idTrain" ColumnName="idTrain" />
+                <ScalarProperty Name="idPassenger" ColumnName="idPassenger" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Train">
+            <EntityTypeMapping TypeName="Train_scheduleModel.Train">
+              <MappingFragment StoreEntitySet="Train">
+                <ScalarProperty Name="stations" ColumnName="stations" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="des" ColumnName="des" />
+                <ScalarProperty Name="dep_point" ColumnName="dep_point" />
+                <ScalarProperty Name="num" ColumnName="num" />
+                <ScalarProperty Name="dep_time" ColumnName="dep_time" />
+                <ScalarProperty Name="trav_time" ColumnName="trav_time" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

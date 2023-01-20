@@ -1,0 +1,64 @@
+﻿<Page x:Class="TrainSchedule.Pages.PagePessenger"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:TrainSchedule.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="PagePessenger">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.4*"/>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="1*"/> 
+        </Grid.RowDefinitions>
+        <Menu Grid.Row="0"
+              Height="25">
+            <Menu.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF007E86" Offset="0.083"/>
+                    <GradientStop Color="White" Offset="1"/>
+                </LinearGradientBrush>
+            </Menu.Background>            
+            <MenuItem Header="Добавление"
+                      Name="BtnAdd" Click="BtnAdd_Click"/>
+            <MenuItem Header="Удаление"
+                      Name="BtnDelete" Click="BtnDelete_Click"/>
+            <MenuItem Header="Билеты"
+                      Name="BtnTicket" Click="BtnTicket_Click"/>
+            <MenuItem Header="Расписание"
+                      Name="BtnSchedule" Click="BtnSchedule_Click"/>
+        </Menu>
+        <DataGrid Name="DgridPes"
+                  AutoGenerateColumns="False"
+                  IsReadOnly="True"
+                  Grid.Row="1">
+            <DataGrid.Columns>
+                <DataGridTextColumn Width="*" Header="ФИО"
+                                       Binding="{Binding fio}"/>
+                <DataGridTextColumn Width="*" Header="Паспорт"
+                                       Binding="{Binding passport}"/>
+                <DataGridTextColumn Width="*" Header="Телефон"
+                                       Binding="{Binding phone}"/>
+                <DataGridTemplateColumn Width="*">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button x:Name="BtnEdit" Click="BtnEdit_Click"                                    
+                                    Content="Редактирование" 
+                                    Width="150" Height="30"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <StackPanel Grid.Row="2" Background="#FF007E86" Orientation="Horizontal">
+            <Button Name="BtnSerialize" Content="Запись в JSON" Width="125"
+                   Click="BtnSerialize_Click"/>
+            <Button Name="BtnDeserialize" Content="Поиск в JSON" Width="125"
+                    Click="BtnDeserialize_Click"/>
+            <TextBox Name="tbFilt" Width="100"/>
+        </StackPanel>
+    </Grid>
+</Page>

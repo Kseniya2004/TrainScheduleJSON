@@ -1,0 +1,82 @@
+﻿<Page x:Class="TrainSchedule.Pages.PageTrain"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:TrainSchedule.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="900"
+      Title="PageTrain"
+      IsVisibleChanged="Page_IsVisibleChanged">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.5*"/>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <Menu Grid.Row="0"
+              Height="25">
+            <Menu.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF007E86" Offset="0.083"/>
+                    <GradientStop Color="White" Offset="1"/>
+                </LinearGradientBrush>
+            </Menu.Background>            
+            <MenuItem Header="Добавление"
+                      Name="BtnAdd" Click="BtnAdd_Click"/>
+            <MenuItem Header="Удаление"
+                      Name="BtnDelete" Click="BtnDelete_Click"/>
+            <MenuItem Header="Билеты"
+                      Name="BtnTicket" Click="BtnTicket_Click"/>
+            <MenuItem Header="Пассажиры"
+                      Name="BtnPas" Click="BtnPas_Click"/>
+        </Menu>
+        <DataGrid Name="DgridTrain"
+                  AutoGenerateColumns="False"
+                  IsReadOnly="True"
+                  Grid.Row="1">
+            <DataGrid.Columns>
+                <DataGridTextColumn Width="0.5*" Header="Пункт назначения"
+                                        Binding="{Binding des}"/>
+                <DataGridTextColumn Width="0.5*" Header="Пункт отправления"
+                                       Binding="{Binding dep_point}"/>
+                <DataGridTextColumn Width="0.5*" Header="Номер поезда"
+                                       Binding="{Binding num}"/>
+                <DataGridTextColumn Width="0.6*" Header="Время отправления"
+                                       Binding="{Binding dep_time}"/>
+                <DataGridTextColumn Width="0.4*" Header="Время в пути"
+                                       Binding="{Binding trav_time}"/>
+                <DataGridTextColumn Width="0.7*" Header="Станции"
+                                       Binding="{Binding stations}"/>
+                <DataGridTemplateColumn Width="*">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button x:Name="BtnEdit" Click="BtnEdit_Click"                                    
+                                    Content="Редактирование" 
+                                    Width="150" Height="30"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <StackPanel Grid.Row="2" Background="#FF007E86" Orientation="Horizontal">
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="5">
+                <TextBlock Text="Поиск:" Foreground="White" Height="30" Width="50"/>
+                <TextBox Name="TxtSearch"  Height="30" Width="100" TextChanged="TxtSearch_TextChanged"/>
+            </StackPanel>            
+                <ComboBox Name="CmbAvr" Margin="10" Height="30" Width="100" SelectionChanged="CmbAvr_SelectionChanged" VerticalAlignment="Top"/>
+            <StackPanel Orientation="Horizontal" Margin="10" VerticalAlignment="Top">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Среднее время в пути:" Foreground="White" Margin="5" Height="30"/>
+                    <TextBlock Name="txtAvr" Foreground="White" Height="30"/> 
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Количество поездов со станции:" Foreground="White" Margin="5" Height="30"/>
+                    <TextBlock Name="txtCount" Foreground="White" Height="30"/>
+                </StackPanel>
+            </StackPanel>    
+            
+        </StackPanel>
+    </Grid>
+</Page>

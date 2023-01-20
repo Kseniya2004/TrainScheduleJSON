@@ -1,0 +1,47 @@
+﻿<Page x:Class="TrainSchedule.Pages.PageEdit"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:TrainSchedule.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Редактирование/Добавление">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="5*"/>
+        </Grid.RowDefinitions>
+        <TextBlock Text="Пункт назначения" Grid.Column="0" Grid.Row="0"
+                   HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBlock Text="Пункт отправления" Grid.Column="1" Grid.Row="0"
+                   HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBlock Text="Номер поезда" Grid.Column="2" Grid.Row="0"
+                   HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBlock Text="Вр. отправления" Grid.Column="3" Grid.Row="0"
+                   HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBlock Text="Время в пути" Grid.Column="4" Grid.Row="0"
+                   HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBlock Text="Станции" Grid.Column="5" Grid.Row="0"
+                   HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBox Text="{Binding des}" Grid.Column="0" Grid.Row="1"/>
+        <TextBox Text="{Binding dep_point}" Grid.Column="1" Grid.Row="1"/>
+        <TextBox Text="{Binding num}" Grid.Column="2" Grid.Row="1"/>
+        <TextBox Text="{Binding dep_time}" Grid.Column="3" Grid.Row="1"/>
+        <TextBox Text="{Binding trav_time}" Grid.Column="4" Grid.Row="1"/>
+        <TextBox Text="{Binding station}" Grid.Column="5" Grid.Row="1"/>
+        <StackPanel Grid.Row="2" Grid.ColumnSpan="6" Margin="10">
+            <Button Name="BtnSave" Content="Сохранить" Click="BtnSave_Click"/>
+        </StackPanel>
+    </Grid>
+</Page>
